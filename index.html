@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pra você 💗</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rosa-claro: #ffe3ec;
+    --rosa: #ff8fb1;
+    --rosa-forte: #e0457b;
+    --creme: #fff8f3;
+    --vinho: #6b2140;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Nunito', system-ui, sans-serif;
+    color: var(--vinho);
+    background: radial-gradient(circle at 20% 15%, #fff 0, var(--rosa-claro) 45%, #ffc9da 100%);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 24px; overflow-x: hidden;
+    position: relative;
+  }
+  .cartao {
+    position: relative; z-index: 2;
+    background: var(--creme);
+    border-radius: 36px;
+    padding: 36px 28px 32px;
+    max-width: 440px; width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(224, 69, 123, .25);
+    border: 3px dashed var(--rosa);
+  }
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    color: var(--rosa-forte);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .sub { font-size: 1.05rem; margin-bottom: 22px; }
+
+  /* ---- GIF central (clicável) ---- */
+  .gif-link {
+    display: block; width: 100%; max-width: 300px; margin: 0 auto 20px;
+    border-radius: 28px; overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: 0 10px 25px rgba(224, 69, 123, .3);
+    transition: transform .25s ease;
+    cursor: pointer;
+  }
+  .gif-link:hover, .gif-link:focus-visible { transform: scale(1.05) rotate(-2deg); outline: 3px solid var(--rosa-forte); }
+  .gif-link img { display: block; width: 100%; height: auto; background: var(--rosa-claro); min-height: 180px; }
+
+  .dica { font-size: .95rem; opacity: .85; margin-bottom: 18px; }
+  .botao {
+    display: inline-block;
+    background: var(--rosa-forte); color: #fff;
+    padding: 13px 30px; border-radius: 999px;
+    font-weight: 700; font-size: 1.05rem; text-decoration: none;
+    box-shadow: 0 6px 0 #a92c58;
+    transition: transform .1s, box-shadow .1s;
+  }
+  .botao:active { transform: translateY(4px); box-shadow: 0 2px 0 #a92c58; }
+
+  /* ---- Corações caindo ---- */
+  .coracao {
+    position: fixed; top: -40px; z-index: 1;
+    pointer-events: none; user-select: none;
+    animation: cair linear forwards;
+  }
+  @keyframes cair {
+    to { transform: translateY(110vh) rotate(40deg); opacity: .4; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .coracao { display: none; }
+    .gif-link { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="cartao">
+    <h1>Tenho uma surpresa pra você</h1>
+    <p class="sub">Clique e descubra 💌</p>
+
+
+  <a class="gif-link" id="gif" href="proxima-pagina.html" aria-label="Abrir surpresa">
+  <img src="https://media.tenor.com/QWk92eu9uboAAAAj/urso-cora%C3%A7%C3%A3o.gif" alt="GIF fofo">
+</a>
+    <p class="dica">Toque na imagem ↑</p>
+    <a class="botao" href="livro.html">Abrir 💗</a>
+  </main>
+
+<script>
+  // Chuva de corações
+  const emojis = ['💗', '💖', '💕', '🌸', '💘'];
+  function criarCoracao() {
+    const el = document.createElement('span');
+    el.className = 'coracao';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (14 + Math.random() * 22) + 'px';
+    el.style.animationDuration = (5 + Math.random() * 5) + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 10500);
+  }
+  setInterval(criarCoracao, 450);
+
+  // Ao clicar no GIF: explosão de corações e depois vai pra outra página
+  const gif = document.getElementById('gif');
+  gif.addEventListener('click', (e) => {
+    e.preventDefault();
+    for (let i = 0; i < 25; i++) setTimeout(criarCoracao, i * 25);
+    setTimeout(() => { window.location.href = gif.href; }, 700);
+  });
+</script>
+</body>
+</html>
